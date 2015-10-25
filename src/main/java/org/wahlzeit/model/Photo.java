@@ -123,6 +123,11 @@ public class Photo extends DataObject {
 	protected String ending = "jpg";
 	
 	/**
+	 * The geolocation of this photo
+	 */
+	protected Coordinate location = new Coordinate();
+	
+	/**
 	 *
 	 */
 	//TODO: change it to a single long

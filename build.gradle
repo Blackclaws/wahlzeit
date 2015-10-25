@@ -2,6 +2,9 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'appengine'
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 buildscript {
     ext {
         gaeVersion = '1.9.24'
