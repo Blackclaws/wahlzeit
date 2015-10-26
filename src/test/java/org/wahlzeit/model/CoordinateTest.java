@@ -52,6 +52,8 @@ public class CoordinateTest {
 		
 		assertEquals(coordinateOne.getDistance(coordinateTwo).getLatitude(),11,0);
 		assertEquals(coordinateOne.getDistance(coordinateTwo).getLongitude(),21,0);
+		
+		assertEquals(coordinateTwo.getMeterDistance(coordinateThree), 2377262,1);
 	}
 	
 	@Test
@@ -84,6 +86,10 @@ public class CoordinateTest {
 			fail("getDistance should throw when passed null");
 		}
 		catch(IllegalArgumentException e){}	
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void usingResultShouldThrowException() {
+		coordinateThree.getDistance(coordinateOne.getDistance(coordinateTwo));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
