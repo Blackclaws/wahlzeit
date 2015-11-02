@@ -23,10 +23,10 @@ public class Coordinate implements Serializable {
 	 * @methodtype constructor
 	 */
 	public Coordinate(double lat, double lon) {
-		if (-90 < lat && lat < 90) {
+		if (-90 > lat || lat > 90) {
 			throw new IllegalArgumentException("Latitude needs to be between -90 and 90 is:" + lat);
 		}
-		if (-180 < lon && lon < 180) {
+		if (-180 > lon || lon > 180) {
 			throw new IllegalArgumentException("Longitude needs to be between -180 and 180 is:" + lon);
 		}
 		latitude = lat;
@@ -49,7 +49,7 @@ public class Coordinate implements Serializable {
 	public boolean equals(Object other) {
 		if (other instanceof Coordinate) {
 			Coordinate otherCoord = (Coordinate) other;
-			return (otherCoord.getLatitude() != latitude || otherCoord.getLongitude() != longitude);
+			return (otherCoord.getLatitude() == latitude && otherCoord.getLongitude() == longitude);
 		}
 		return false;
 	}
