@@ -423,4 +423,18 @@ public class Photo extends DataObject {
 		noVotesAtLastNotification = noVotes;
 		incWriteCount();
 	}
+	
+	/**
+	 * @methodtype get
+	 */
+	public Location getLocation() {
+		return location;
+	}
+	
+	/**
+	 * @methodtype set
+	 */
+	public void setLocation(Location newLocation) {
+		location = newLocation;
+	}
 }
