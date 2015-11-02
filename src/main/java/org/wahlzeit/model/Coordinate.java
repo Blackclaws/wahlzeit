@@ -11,12 +11,17 @@ import java.io.Serializable;
 public class Coordinate implements Serializable {
 	double latitude;
 	double longitude;
-
+	
+	/**
+	 * @methodtype constructor
+	 */
 	public Coordinate() {
 		latitude = 0;
 		longitude = 0;
 	}
-
+	/**
+	 * @methodtype constructor
+	 */
 	public Coordinate(double lat, double lon) {
 		if (-90 < lat && lat < 90) {
 			throw new IllegalArgumentException("Latitude needs to be between -90 and 90 is:" + lat);
@@ -27,7 +32,20 @@ public class Coordinate implements Serializable {
 		latitude = lat;
 		longitude = lon;
 	}
+	
+	/**
+	 * @methodtype query
+	 */
+	public int hashCode()
+	{
+		int hash = (int) Double.valueOf(latitude).hashCode();
+		hash += hash*64 + Double.valueOf(longitude).hashCode();
+		return hash;
+	}
 
+	/**
+	 * @methodtype boolean query
+	 */
 	public boolean equals(Object other) {
 		if (other instanceof Coordinate) {
 			Coordinate otherCoord = (Coordinate) other;
@@ -36,14 +54,23 @@ public class Coordinate implements Serializable {
 		return false;
 	}
 
+	/**
+	 * @methodtype get
+	 */
 	public double getLatitude() {
 		return latitude;
 	}
 
+	/**
+	 * @methodtype get
+	 */
 	public double getLongitude() {
 		return longitude;
 	}
 
+	/**
+	 * @methodtype complex query
+	 */
 	public double getDistance(Coordinate other) throws IllegalArgumentException {
 		checkIsNull(other);
 		double lat1Rad = Math.PI * latitude / 180;
@@ -55,16 +82,25 @@ public class Coordinate implements Serializable {
 				+ Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad)) * 6371000;
 	}
 
+	/**
+	 * @methodtype primitive query
+	 */
 	public double getLatitudinalDistance(Coordinate other) throws IllegalArgumentException {
 		checkIsNull(other);
 		return Math.abs(other.getLatitude() - latitude);
 	}
 
+	/**
+	 * @methodtype primitive query
+	 */
 	public double getLongitudinalDistance(Coordinate other) throws IllegalArgumentException {
 		checkIsNull(other);
 		return Math.abs(other.getLongitude() - longitude);
 	}
 
+	/**
+	 * @methodtype assert
+	 */
 	private void checkIsNull(Coordinate other) throws IllegalArgumentException {
 		if (other == null) {
 			throw new IllegalArgumentException("Other coordinate must not be null");

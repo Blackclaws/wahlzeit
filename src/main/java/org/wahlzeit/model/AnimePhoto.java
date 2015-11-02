@@ -2,7 +2,7 @@ package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Subclass;
 
-@Subclass
+@Subclass(index=true)
 public class AnimePhoto extends Photo {
 
 	protected String seriesOfOrigin;
