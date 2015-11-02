@@ -4,18 +4,17 @@ import com.googlecode.objectify.annotation.Subclass;
 
 @Subclass
 public class AnimePhoto extends Photo {
-	
+
 	protected String seriesOfOrigin;
 	protected String genre;
-	
+
 	/**
 	 * @methodtype constructor
 	 */
-	public AnimePhoto()
-	{
+	public AnimePhoto() {
 		super();
 	}
-	
+
 	/**
 	 * @methodtype constructor
 	 */
@@ -23,38 +22,32 @@ public class AnimePhoto extends Photo {
 		super(myId);
 	}
 
-	
 	/**
 	 * @methodtype get
 	 */
-	public String getSeriesOfOrigin()
-	{
+	public String getSeriesOfOrigin() {
 		return seriesOfOrigin;
 	}
-	
+
 	/**
 	 * @methodtype set
 	 */
-	public void setSeriesOfOrigin(String newSeriesOfOrigin)
-	{
+	public void setSeriesOfOrigin(String newSeriesOfOrigin) {
 		seriesOfOrigin = newSeriesOfOrigin;
 	}
-	
+
 	/**
 	 * @methodtype get
 	 */
-	public String getGenre()
-	{
+	public String getGenre() {
 		return genre;
 	}
-	
+
 	/**
 	 * @methodtype set
 	 */
-	public void setGenre(String newGenre)
-	{
+	public void setGenre(String newGenre) {
 		genre = newGenre;
 	}
-	
 
 }
