@@ -123,9 +123,9 @@ public class Photo extends DataObject {
 	protected String ending = "jpg";
 	
 	/**
-	 * The geolocation of this photo
+	 * The location of this photo
 	 */
-	protected Coordinate location = new Coordinate();
+	protected Location location = new Location();
 	
 	/**
 	 *

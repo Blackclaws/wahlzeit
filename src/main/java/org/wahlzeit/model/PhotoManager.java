@@ -55,7 +55,7 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * In-memory cache for photos
 	 */
-	protected Map<PhotoId, Photo> photoCache = new HashMap<PhotoId, Photo>();
+	protected Map<PhotoId, AnimePhoto> photoCache = new HashMap<PhotoId, AnimePhoto>();
 
 	/**
 	 *
@@ -93,19 +93,19 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 *
 	 */
-	public final Photo getPhoto(PhotoId id) {
+	public final AnimePhoto getPhoto(PhotoId id) {
 		return instance.getPhotoFromId(id);
 	}
 
 	/**
 	 *
 	 */
-	public Photo getPhotoFromId(PhotoId id) {
+	public AnimePhoto getPhotoFromId(PhotoId id) {
 		if (id == null) {
 			return null;
 		}
 
-		Photo result = doGetPhotoFromId(id);
+		AnimePhoto result = doGetPhotoFromId(id);
 
 		if (result == null) {
 			result = PhotoFactory.getInstance().loadPhoto(id);
@@ -121,7 +121,7 @@ public class PhotoManager extends ObjectManager {
 	 * @methodtype get
 	 * @methodproperties primitive
 	 */
-	protected Photo doGetPhotoFromId(PhotoId id) {
+	protected AnimePhoto doGetPhotoFromId(PhotoId id) {
 		return photoCache.get(id);
 	}
 
@@ -129,14 +129,14 @@ public class PhotoManager extends ObjectManager {
 	 * @methodtype command
 	 * @methodproperties primitive
 	 */
-	protected void doAddPhoto(Photo myPhoto) {
+	protected void doAddPhoto(AnimePhoto myPhoto) {
 		photoCache.put(myPhoto.getId(), myPhoto);
 	}
 
 	/**
 	 * @methodtype get
 	 */
-	public final Photo getPhoto(String id) {
+	public final AnimePhoto getPhoto(String id) {
 		return getPhoto(PhotoId.getIdFromString(id));
 	}
 
@@ -153,16 +153,16 @@ public class PhotoManager extends ObjectManager {
 	 * Load all persisted photos. Executed when Wahlzeit is restarted.
 	 */
 	public void loadPhotos() {
-		Collection<Photo> existingPhotos = ObjectifyService.run(new Work<Collection<Photo>>() {
+		Collection<AnimePhoto> existingPhotos = ObjectifyService.run(new Work<Collection<AnimePhoto>>() {
 			@Override
-			public Collection<Photo> run() {
-				Collection<Photo> existingPhotos = new ArrayList<Photo>();
-				readObjects(existingPhotos, Photo.class);
+			public Collection<AnimePhoto> run() {
+				Collection<AnimePhoto> existingPhotos = new ArrayList<AnimePhoto>();
+				readObjects(existingPhotos, AnimePhoto.class);
 				return existingPhotos;
 			}
 		});
 
-		for (Photo photo : existingPhotos) {
+		for (AnimePhoto photo : existingPhotos) {
 			if (!doHasPhoto(photo.getId())) {
 				log.config(LogBuilder.createSystemMessage().
 						addParameter("Load Photo with ID", photo.getIdAsString()).toString());
@@ -227,8 +227,8 @@ public class PhotoManager extends ObjectManager {
 
 	@Override
 	protected void updateDependents(Persistent obj) {
-		if (obj instanceof Photo) {
-			Photo photo = (Photo) obj;
+		if (obj instanceof AnimePhoto) {
+			AnimePhoto photo = (AnimePhoto) obj;
 			saveScaledImages(photo);
 			updateTags(photo);
 			UserManager userManager = UserManager.getInstance();
@@ -251,7 +251,7 @@ public class PhotoManager extends ObjectManager {
 	 * Persists all available sizes of the Photo. If one size exceeds the limit of the persistence layer, e.g. > 1MB for
 	 * the Datastore, it is simply not persisted.
 	 */
-	protected void saveScaledImages(Photo photo) {
+	protected void saveScaledImages(AnimePhoto photo) {
 		String photoIdAsString = photo.getId().asString();
 		ImageStorage imageStorage = ImageStorage.getInstance();
 		PhotoSize photoSize;
@@ -283,7 +283,7 @@ public class PhotoManager extends ObjectManager {
 	 * Removes all tags of the Photo (obj) in the datastore that have been removed by the user and adds all new tags of
 	 * the photo to the datastore.
 	 */
-	protected void updateTags(Photo photo) {
+	protected void updateTags(AnimePhoto photo) {
 		// delete all existing tags, for the case that some have been removed
 		deleteObjects(Tag.class, Tag.PHOTO_ID, photo.getId().asString());
 
@@ -307,18 +307,18 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * @methodtype get
 	 */
-	public Map<PhotoId, Photo> getPhotoCache() {
+	public Map<PhotoId, AnimePhoto> getPhotoCache() {
 		return photoCache;
 	}
 
 	/**
 	 *
 	 */
-	public Set<Photo> findPhotosByOwner(String ownerName) {
-		Set<Photo> result = new HashSet<Photo>();
-		readObjects(result, Photo.class, Photo.OWNER_ID, ownerName);
+	public Set<AnimePhoto> findPhotosByOwner(String ownerName) {
+		Set<AnimePhoto> result = new HashSet<AnimePhoto>();
+		readObjects(result, AnimePhoto.class, Photo.OWNER_ID, ownerName);
 
-		for (Iterator<Photo> i = result.iterator(); i.hasNext(); ) {
+		for (Iterator<AnimePhoto> i = result.iterator(); i.hasNext(); ) {
 			doAddPhoto(i.next());
 		}
 
@@ -328,7 +328,7 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 *
 	 */
-	public Photo getVisiblePhoto(PhotoFilter filter) {
+	public AnimePhoto getVisiblePhoto(PhotoFilter filter) {
 		filter.generateDisplayablePhotoIds();
 		return getPhotoFromId(filter.getRandomDisplayablePhotoId());
 	}
@@ -336,9 +336,9 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 *
 	 */
-	public Photo createPhoto(String filename, Image uploadedImage) throws Exception {
+	public AnimePhoto createPhoto(String filename, Image uploadedImage) throws Exception {
 		PhotoId id = PhotoId.getNextId();
-		Photo result = PhotoUtil.createPhoto(filename, id, uploadedImage);
+		AnimePhoto result = PhotoUtil.createPhoto(filename, id, uploadedImage);
 		addPhoto(result);
 		return result;
 	}
@@ -346,7 +346,7 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * @methodtype command
 	 */
-	public void addPhoto(Photo photo) throws IOException {
+	public void addPhoto(AnimePhoto photo) throws IOException {
 		PhotoId id = photo.getId();
 		assertIsNewPhoto(id);
 		doAddPhoto(photo);

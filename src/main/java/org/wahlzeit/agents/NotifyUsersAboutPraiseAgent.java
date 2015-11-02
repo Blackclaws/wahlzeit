@@ -3,6 +3,7 @@ package org.wahlzeit.agents;
 import com.google.apphosting.api.ApiProxy;
 import org.wahlzeit.model.LanguageConfigs;
 import org.wahlzeit.model.ModelConfig;
+import org.wahlzeit.model.AnimePhoto;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.model.PhotoManager;
@@ -38,8 +39,8 @@ public class NotifyUsersAboutPraiseAgent extends Agent {
 	 * Notifies all users that want to get informed if their photos have been praised.
 	 */
 	protected void doRun() {
-		Map<PhotoId, Photo> photoCache = PhotoManager.getInstance().getPhotoCache();
-		Collection<Photo> photos = photoCache.values();
+		Map<PhotoId, AnimePhoto> photoCache = PhotoManager.getInstance().getPhotoCache();
+		Collection<AnimePhoto> photos = photoCache.values();
 
 		ArrayList<Photo> arrayListOfPhotos;
 		HashMap<String, ArrayList<Photo>> ownerIdPhotosMap = new HashMap<String, ArrayList<Photo>>();
