@@ -34,6 +34,7 @@ public class AnimePhoto extends Photo {
 	 */
 	public void setSeriesOfOrigin(String newSeriesOfOrigin) {
 		seriesOfOrigin = newSeriesOfOrigin;
+		incWriteCount();
 	}
 
 	/**
@@ -48,6 +49,7 @@ public class AnimePhoto extends Photo {
 	 */
 	public void setGenre(String newGenre) {
 		genre = newGenre;
+		incWriteCount();
 	}
 
 }

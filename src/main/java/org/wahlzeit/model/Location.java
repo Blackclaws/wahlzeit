@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Location implements Serializable {
 	protected String name = "";
-	protected Coordinate coordinate = new Coordinate();
+	protected Coordinate coordinate = new SphereCoordinate();
 
 	/**
 	 * @methodtype constructor
