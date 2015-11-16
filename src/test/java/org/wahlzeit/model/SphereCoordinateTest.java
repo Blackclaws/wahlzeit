@@ -46,7 +46,7 @@ public class SphereCoordinateTest {
 
     @Test
     public void testDistance() {
-	assertEquals(coordinateTwo.getDistance(coordinateThree), 2377262, 1);
+	assertEquals(coordinateTwo.getDistance(coordinateThree), 634893, 1);
     }
     
     @Test
