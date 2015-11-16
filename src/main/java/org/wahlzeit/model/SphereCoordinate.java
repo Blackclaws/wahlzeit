@@ -64,18 +64,21 @@ public class SphereCoordinate extends AbstractCoordinate implements Serializable
 	
 	@Override
 	public double getDistance(Coordinate other) throws IllegalArgumentException {
-		if(other instanceof SphereCoordinate && (Math.abs(((SphereCoordinate) other).radius - radius) < 0.0001))
-		{
-			SphereCoordinate sphereCoord = (SphereCoordinate) other;
-			double lat1Rad = Math.PI * latitude / 180;
-			double lon1Rad = Math.PI * longitude / 180;
-			double lat2Rad = Math.PI * sphereCoord.getLatitude() / 180;
-			double lon2Rad = Math.PI * sphereCoord.getLongitude() / 180;
-		
-			return Math.acos(Math.sin(lat1Rad) * Math.sin(lat2Rad)
-					+ Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad)) * radius;
-		}
 		return super.getDistance(other);
+	}
+	
+	/**
+	 * @methodtype query
+	 */
+	public double getHaversineDistance(SphereCoordinate other)
+	{
+		double lat1Rad = Math.PI * latitude / 180;
+		double lon1Rad = Math.PI * longitude / 180;
+		double lat2Rad = Math.PI * other.getLatitude() / 180;
+		double lon2Rad = Math.PI * other.getLongitude() / 180;
+	
+		return Math.acos(Math.sin(lat1Rad) * Math.sin(lat2Rad)
+				+ Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad)) * radius;
 	}
 	
 	/**
@@ -111,9 +114,9 @@ public class SphereCoordinate extends AbstractCoordinate implements Serializable
 	@Override
 	public CartesianContainer asCartesianContainer() {
 		CartesianContainer container = new CartesianContainer();
-		container.x = radius * Math.cos(latitude);
-		container.y = radius * Math.sin(latitude)*Math.cos(longitude);
-		container.z = radius * Math.sin(latitude)*Math.sin(longitude);
+		container.x = radius * Math.cos(Math.toRadians(latitude));
+		container.y = radius * Math.sin(Math.toRadians(latitude))*Math.cos(Math.toRadians(longitude));
+		container.z = radius * Math.sin(Math.toRadians(latitude))*Math.sin(Math.toRadians(longitude));
 		return container;
 	}
 }
