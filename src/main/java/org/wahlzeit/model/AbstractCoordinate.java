@@ -43,6 +43,21 @@ public abstract class AbstractCoordinate implements Coordinate {
 			}
 		}
 	}
+	
+	protected void assertClassInvariants()
+	{
+		assert(true);
+	}
+	
+	protected void assertGetDistancePre()
+	{
+		assert(true);
+	}
+	
+	protected void assertGetDistancePost()
+	{
+		assert(true);
+	}
 
 	/**
 	 * @methodtype Constructor
@@ -62,11 +77,14 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 * @methodtype query
 	 */
 	public double getDistance(Coordinate other) throws IllegalArgumentException {
+		assertGetDistancePre();
 		checkIsNull(other);
 		if (other instanceof AbstractCoordinate) {
 			CartesianContainer otherContainer = ((AbstractCoordinate) other).asCartesianContainer();
 			return otherContainer.getDistance(this.asCartesianContainer());
 		}
+		assertGetDistancePost();
+		assertClassInvariants();
 		return Double.MAX_VALUE;
 	}
 

@@ -62,11 +62,6 @@ public class SphereCoordinate extends AbstractCoordinate implements Serializable
 		return false;
 	}
 	
-	@Override
-	public double getDistance(Coordinate other) throws IllegalArgumentException {
-		return super.getDistance(other);
-	}
-	
 	/**
 	 * @methodtype query
 	 */
