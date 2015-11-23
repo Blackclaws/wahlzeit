@@ -106,12 +106,22 @@ public class SphereCoordinate extends AbstractCoordinate implements Serializable
 		return Math.abs(other.getLongitude() - longitude);
 	}
 	
+	protected void assertAsCartesianPreAndPost()
+	{
+		assert(!(-90 > latitude || latitude > 90));
+		assert(!(-180 > longitude || longitude > 90));
+		assert(!(radius < 0));
+	}
+	
 	@Override
 	public CartesianContainer asCartesianContainer() {
+		assertAsCartesianPreAndPost();
 		CartesianContainer container = new CartesianContainer();
 		container.x = radius * Math.cos(Math.toRadians(latitude));
 		container.y = radius * Math.sin(Math.toRadians(latitude))*Math.cos(Math.toRadians(longitude));
 		container.z = radius * Math.sin(Math.toRadians(latitude))*Math.sin(Math.toRadians(longitude));
+		assertAsCartesianPreAndPost();
+		assertClassInvariants();
 		return container;
 	}
 }
