@@ -32,16 +32,19 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
+import org.wahlzeit.utils.Pattern;
 
 
 /**
  * The UserManager provides access to and manages Users (including Moderators and Administrators).
- * @Pattern (
- * {
- * 	name = "Singleton"
- * }
- * )
  */
+@Pattern
+(
+ 	name = "Singleton",
+ 	participants = {
+ 			"Singleton"
+ 	}
+)
 public class UserManager extends ClientManager {
 
 	private static final Logger log = Logger.getLogger(UserManager.class.getName());

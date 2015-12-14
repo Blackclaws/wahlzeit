@@ -28,6 +28,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.OfyService;
+import org.wahlzeit.utils.Pattern;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -39,16 +40,18 @@ import java.util.logging.Logger;
  * 
  * @review
  * 
- * @Pattern(
- * {
- * 	name = "Adapter"
- * 	participants = 
- * 	{
- * 		"Adaptor",
- * 		"Adaptee"
- *  }
- *  )
+ * 
  */
+
+@Pattern
+(
+	name = "Adapter",
+	participants = 
+	{
+			"Adaptor",
+			"Adaptee"
+	}
+)
 public class DatastoreAdapter extends ImageStorage {
 
 	private static final Logger log = Logger.getLogger(DatastoreAdapter.class.getName());
@@ -110,7 +113,7 @@ public class DatastoreAdapter extends ImageStorage {
 		} catch (IOException e) {
 			log.warning(
 					LogBuilder.createSystemMessage().addException("IOException when checking for Image existance", e)
-							.toString());
+					.toString());
 		}
 		if (image != null) {
 			result = true;
@@ -122,7 +125,7 @@ public class DatastoreAdapter extends ImageStorage {
 	/**
 	 * Wrapper class to store {@link Image}s in the Google Datastore with Objectify.
 	 * 
- 	 * @review
+	 * @review
 	 */
 	@Entity
 	public static class ImageWrapper {
