@@ -5,7 +5,7 @@ import com.googlecode.objectify.annotation.Subclass;
 @Subclass(index=true)
 public class AnimePhoto extends Photo {
 
-	Anime origin = null;
+	AnimeEpisode origin = null;
 
 	/**
 	 * @methodtype constructor
@@ -24,14 +24,14 @@ public class AnimePhoto extends Photo {
 	/**
 	 * @methodtype get
 	 */
-	public Anime getAnime() {
+	public AnimeEpisode getAnime() {
 		return origin;
 	}
 
 	/**
 	 * @methodtype set
 	 */
-	public void setAnime(Anime anime) {
+	public void setAnime(AnimeEpisode anime) {
 		this.origin = anime;
 		incWriteCount();
 	}

@@ -1,9 +1,12 @@
 package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
 @Entity
 public class AnimeType implements AnimeTypeInterface {
+	@Id Long id;
+	
 	private String name;
 	private String genre;
 	private int numberOfEpisodes;

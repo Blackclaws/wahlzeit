@@ -4,7 +4,9 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import org.wahlzeit.model.AnimePhoto;
+import org.wahlzeit.model.AnimeType;
 import org.wahlzeit.model.Administrator;
+import org.wahlzeit.model.AnimeEpisode;
 import org.wahlzeit.model.Client;
 import org.wahlzeit.model.Globals;
 import org.wahlzeit.model.Guest;
@@ -28,6 +30,8 @@ public class OfyService {
 	static {
 		factory().register(Photo.class);
 		factory().register(AnimePhoto.class);
+		factory().register(AnimeType.class);
+		factory().register(AnimeEpisode.class);
 		factory().register(Globals.class);
 		factory().register(Tag.class);
 		factory().register(User.class);
